@@ -1,61 +1,54 @@
-import java.util.Arrays;
+import java.util.*;
 
 class Solution {
     public int solution(int a, int b, int c, int d) {
+    
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int data : new int[] {a, b, c, d}) {
+            if (map.containsKey(data)) map.put(data, map.get(data) + 1);
+            else map.put(data, 1);
+        }
+
+        PriorityQueue<Dice> pq = new PriorityQueue<>();
+        for (int key : map.keySet()) {
+            pq.add(new Dice(key, map.get(key)));
+        }
+
         int answer = 0;
-        int[] nums=new int[4];
-        nums[0]=a;
-        nums[1]=b;
-        nums[2]=c;
-        nums[3]=d;
-        
-        int multi=1;
-        
-        Arrays.sort(nums);
-        int[] dice=new int[6];
-        for(int i=0;i<4;i++){
-            dice[nums[i]-1]++;
+        if (pq.size() == 1) answer = pq.poll().number * 1111;
+        else if (pq.size() == 3) {
+            pq.poll();
+            answer = pq.poll().number * pq.poll().number;
+        } else if (pq.size() == 4) {
+            pq.poll(); pq.poll(); pq.poll();
+            answer = pq.poll().number;
+        } else {
+            Dice maxDice = pq.poll();
+            Dice next = pq.poll();
+            if (maxDice.count == 3) {
+                answer = (10 * maxDice.number + next.number) * (10 * maxDice.number + next.number);
+            } else {
+                answer = (maxDice.number + next.number) * ((int)(Math.abs(maxDice.number - next.number)));
+            }
         }
-        
-        for(int i=0;i<6;i++){
-            if(dice[i]==4){
-                answer=1111*(i+1);
-                break;
-            }
-            else if(dice[i]==3){
-                for(int j=0;j<6;j++){
-                    if(dice[j]==1){
-                        answer=(10*(i+1)+(j+1))*(10*(i+1)+(j+1));
-                        break;
-                    }
-                }
-            }
-            else if(dice[i]==2){
-               for(int j=0;j<6;j++){
-                    if(dice[j]==2){
-                        if(i==j){
-                            continue;
-                        }
-                        else{
-                            answer=(i+1+j+1)*((i+1)-(j+1));
-                            break;
-                        }
-                        
-                    }
-                   else if(dice[j]==1){
-                        multi=multi*(j+1);
-                   }
-                }
-                if(multi!=1){
-                    answer=multi;
-                }
-            }
-            if(nums[0]!=nums[1] && nums[1]!=nums[2] && nums[2]!=nums[3]){
-                answer=nums[0];
-            }
-                
-        }
-        
         return answer;
+    }
+
+    public class Dice implements Comparable<Dice> {
+        int number;
+        int count;
+        
+        public Dice(int number, int count) {
+            this.number = number;
+            this.count = count;
+        }
+
+        @Override
+        public int compareTo(Dice o) {
+            if (this.count == o.count) {
+                return o.number - this.number;
+            }
+            return o.count - this.count;
+        }
     }
 }
