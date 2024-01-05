@@ -10,6 +10,6 @@ class Solution {
                 oddSum += num_list[i];
             }
         }
-        return evenSum >= oddSum ? evenSum : oddSum;
+        return Math.max(evenSum, oddSum);
     }
 }
