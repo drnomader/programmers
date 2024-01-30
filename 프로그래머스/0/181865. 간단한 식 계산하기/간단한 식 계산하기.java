@@ -17,7 +17,11 @@ class Solution {
         int a = Integer.parseInt(splitArr[0]);
         int b = Integer.parseInt(splitArr[2]);
         char op = splitArr[1].charAt(0);
+        
         BinaryOperator<Integer> operation = OPERATORS.get(op);
+        if(operation == null) {
+            throw new IllegalArgumentException("Invalid operator: " + op);
+        }
         
         return operation.apply(a, b);
     }
