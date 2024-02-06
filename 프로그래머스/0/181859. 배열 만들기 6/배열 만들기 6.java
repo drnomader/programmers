@@ -1,17 +1,17 @@
-import java.util.*;
+import java.util.Stack;
 
 class Solution {
     public int[] solution(int[] arr) {
+
+        Stack<Integer> stack = new Stack<>();
         
-        List<Integer> result = new ArrayList<>();
-        
-        for(int i = 0; i < arr.length; i++) {
-            if(result.isEmpty() || i == 0 || arr[i] != result.get(result.size() - 1)) {
-                result.add(arr[i]);
-            } else if(arr[i] == result.get(result.size() - 1)) {
-                result.remove(result.size() - 1);
+        for(int num : arr) {
+            if(!stack.isEmpty() && num == stack.peek()) {
+                stack.pop();
+            } else {
+                stack.push(num);
             }
         }
-        return result.isEmpty() ? new int[] {-1} : result.stream().mapToInt(Integer::intValue).toArray();
+        return stack.isEmpty() ? new int[] {-1} : stack.stream().mapToInt(i -> i).toArray();
     }
 }
