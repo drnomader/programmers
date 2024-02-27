@@ -1,13 +1,10 @@
-import java.util.*;
+import java.util.Arrays;
 
 class Solution {
-    public int[] solution(int[] num_list) {
-        return Arrays.stream(num_list)
-            .boxed() // Convert IntStream to Stream<Integer>
-            .sorted(Comparator.reverseOrder())
-            .limit(num_list.length - 5)
+    public int[] solution(int[] numList) {
+        return Arrays.stream(numList)
             .sorted()
-            .mapToInt(Integer::intValue)
+            .skip(5)
             .toArray();
     }
 }
