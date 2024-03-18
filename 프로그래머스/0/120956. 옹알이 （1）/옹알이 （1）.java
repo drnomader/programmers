@@ -1,32 +1,18 @@
-import java.util.*;
-
 class Solution {
-    
     public int solution(String[] babbling) {
-        int count = 0;
-        for (String word : babbling) {
-            if (isPossible(word))
-                count++;
+        int answer = 0;
+
+        for(int i =0; i < babbling.length; i++) {
+            babbling[i] = babbling[i].replace("aya", "1");
+            babbling[i] = babbling[i].replace("woo", "1");
+            babbling[i] = babbling[i].replace("ye", "1");
+            babbling[i] = babbling[i].replace("ma", "1");
+            babbling[i] = babbling[i].replace("1", "");
+            if(babbling[i].isEmpty()) {
+                answer = answer + 1;
+            }
         }
-        return count;
-    }
-    
-    private boolean isPossible(String word) {
-        if (word.equals(""))
-            return true;
-        
-        if (word.startsWith("aya"))
-            return isPossible(word.substring(3));
-        
-        if (word.startsWith("ye"))
-            return isPossible(word.substring(2));
-        
-        if (word.startsWith("woo"))
-            return isPossible(word.substring(3));
-        
-        if (word.startsWith("ma"))
-            return isPossible(word.substring(2));
-        
-        return false;
+
+        return answer;
     }
 }
