@@ -1,7 +1,8 @@
-import java.lang.Math;
-
 class Solution {
     public int solution(int n, int t) {
-        return n * (int) Math.pow((double) 2, (double) t);
+        for(int i = 0; i < t; i++) {
+            n *= 2;
+        }
+        return n;
     }
 }
