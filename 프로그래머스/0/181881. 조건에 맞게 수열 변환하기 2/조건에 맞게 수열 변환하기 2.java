@@ -1,9 +1,9 @@
 class Solution {
     public int solution(int[] arr) {
-        
+
         int answer = -1;
         int loopCnt = 0;
-        
+
         while(answer == -1) {
             int changeCnt = 0;
             for(int i = 0; i < arr.length; i++) {
