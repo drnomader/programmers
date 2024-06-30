@@ -1,13 +1,16 @@
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
 class Solution {
     public String solution(String my_string, int num1, int num2) {
         
-        char[] charArray = my_string.toCharArray();
-        char temp;
+        List<String> strList = Arrays.stream(my_string.split(""))
+            .collect(Collectors.toList());
         
-        temp = charArray[num1];
-        charArray[num1] = charArray[num2];
-        charArray[num2] = temp;
+        Collections.swap(strList, num1, num2);
         
-        return new String(charArray);
+        return String.join("", strList);
     }
 }
