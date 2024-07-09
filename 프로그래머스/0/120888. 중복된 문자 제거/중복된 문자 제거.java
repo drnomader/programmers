@@ -1,17 +1,9 @@
-import java.util.Set;
-import java.util.LinkedHashSet;
+import java.util.*;
 
 class Solution {
-    public String solution(String my_string) {
-        Set<Character> charSet = new LinkedHashSet<>();
-        StringBuilder sb = new StringBuilder();
-        
-        for (int i = 0; i < my_string.length(); i++){
-            char c = my_string.charAt(i);
-            if (charSet.add(c)) {
-                sb.append(c);
-            }
-        }
-        return sb.toString();
+    public String solution(String my_string) {    
+        String[] answer = my_string.split("");
+        Set<String> set = new LinkedHashSet<>(Arrays.asList(answer));
+        return String.join("", set);
     }
 }
