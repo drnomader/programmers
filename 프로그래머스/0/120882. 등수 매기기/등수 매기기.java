@@ -1,6 +1,3 @@
-import java.util.*;
-import java.util.stream.IntStream;
-
 class Solution {
     public int[] solution(int[][] score) {
         int n = score.length;
